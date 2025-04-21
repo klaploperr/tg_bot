@@ -57,21 +57,21 @@ async def cmd_start(message: Message):
     await funnel(message)
 
 
-@router.message(Command("payments"))
-async def cmd_get_payments(message: Message):
-    #await message.answer(str(message.from_user.id))
-    if is_admin(message.from_user.id):
-        await message.answer(get_payment_list()[0])
-    else:
-        await message.answer("⛔ Только администраторы могут использовать эту команду.")
-
-
-@router.message(Command("conversion"))
-async def cmd_get_conversion(message: Message):
-    if is_admin(message.from_user.id):
-        await message.answer(f'{get_payment_list()[1] / len(await get_all_users()) * 100} %')
-    else:
-        await message.answer("⛔ Только администраторы могут использовать эту команду.")
+# @router.message(Command("payments"))
+# async def cmd_get_payments(message: Message):
+#     #await message.answer(str(message.from_user.id))
+#     if is_admin(message.from_user.id):
+#         await message.answer(get_payment_list()[0])
+#     else:
+#         await message.answer("⛔ Только администраторы могут использовать эту команду.")
+#
+#
+# @router.message(Command("conversion"))
+# async def cmd_get_conversion(message: Message):
+#     if is_admin(message.from_user.id):
+#         await message.answer(f'{get_payment_list()[1] / len(await get_all_users()) * 100} %')
+#     else:
+#         await message.answer("⛔ Только администраторы могут использовать эту команду.")
 
 
 # 📩 Команда /post
