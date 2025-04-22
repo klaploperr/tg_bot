@@ -17,7 +17,7 @@ from app.database import *
 router = Router()
 
 async def funnel(message: Message):
-    await message.answer_photo(FSInputFile("media/matrix-me.png"), demo_lessons, reply_markup=kb.form)
+    await message.answer_photo(FSInputFile("media/matrix-me.png"), demo_lessons)
 
     #await asyncio.sleep(config.ONE_MINUTES)
     sale_url, sale_id = create_payment(config.CONS_PRICE, message.chat.id)
@@ -54,7 +54,7 @@ async def cmd_start_article(message: Message):
 @router.message(CommandStart(deep_link=True, magic=F.args == 'guide'))
 async def cmd_start_article(message: Message):
     await message.answer(hello_guide(html.quote(message.from_user.first_name)),
-    reply_markup=kb.article)
+    reply_markup=kb.guide)
     await asyncio.sleep(config.FIVE_MINUTES)
     await message.answer_photo(FSInputFile("media/screen_questions.png"), gift,
     reply_markup=kb.questions)

@@ -6,9 +6,14 @@ article = InlineKeyboardMarkup(inline_keyboard=[
     url='https://teletype.in/@ilyaa.tar/qYqd_FHYD_M')]
 ])
 
+guide = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Забрать гайд',
+    url='https://teletype.in/@ilyaa.tar/H5o3UAYL9GB')]
+])
+
 questions = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Забрать список',
-    url='https://teletype.in/@ilyaa.tar/sEGUSnuUDii')]
+    url='https://teletype.in/@ilyaa.tar/KpCUtcNedid')]
 ])
 
 form = InlineKeyboardMarkup(inline_keyboard=[
