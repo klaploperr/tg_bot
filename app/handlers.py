@@ -19,7 +19,7 @@ router = Router()
 async def funnel(message: Message):
     await message.answer_photo(FSInputFile("media/matrix-me.png"), demo_lessons, reply_markup=kb.form)
 
-    await asyncio.sleep(config.ONE_MINUTES)
+    #await asyncio.sleep(config.ONE_MINUTES)
     sale_url, sale_id = create_payment(config.CONS_PRICE, message.chat.id)
     await message.answer_photo(FSInputFile("media/life-is-running.png"))
     await message.answer(mentor_sales,
@@ -50,11 +50,23 @@ async def cmd_start_article(message: Message):
     await asyncio.sleep(config.FIVE_MINUTES)
     await funnel(message)
 
-
-@router.message(CommandStart(deep_link=True, magic=F.args == 'course'))
-async def cmd_start(message: Message):
-    await message.answer(f"<b>Привет, {html.quote(message.from_user.first_name)}!</b>")
+@router.message(CommandStart())
+@router.message(CommandStart(deep_link=True, magic=F.args == 'guide'))
+async def cmd_start_article(message: Message):
+    await message.answer(hello_guide(html.quote(message.from_user.first_name)),
+    reply_markup=kb.article)
+    await asyncio.sleep(config.FIVE_MINUTES)
+    await message.answer_photo(FSInputFile("media/screen_questions.png"), gift,
+    reply_markup=kb.questions)
+    await asyncio.sleep(config.FIVE_MINUTES)
     await funnel(message)
+
+# @router.message(CommandStart(deep_link=True, magic=F.args == 'course'))
+# async def cmd_start(message: Message):
+#     await message.answer(f"<b>Привет, {html.quote(message.from_user.first_name)}!</b>")
+#     await funnel(message)
+
+
 
 
 # @router.message(Command("payments"))
