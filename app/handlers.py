@@ -55,10 +55,10 @@ async def cmd_start_guide(message: Message):
 async def cmd_start_article(message: Message):
     await message.answer(hello_article(html.quote(message.from_user.first_name)),
     reply_markup=kb.article)
-    await asyncio.sleep(config.FIVE_MINUTES)
+    await asyncio.sleep(config.THREE_MINUTES)
     await message.answer_photo(FSInputFile("media/screen_questions.png"), gift,
     reply_markup=kb.questions)
-    await asyncio.sleep(config.FIVE_MINUTES)
+    await asyncio.sleep(config.THREE_MINUTES)
     await funnel(message)
 
 
