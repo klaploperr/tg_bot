@@ -134,3 +134,4 @@ async def schedule_post(message: Message, state: FSMContext):
 async def FAQ(callback: CallbackQuery):
     await callback.answer('FAQ')
     await callback.message.answer(faq)
+

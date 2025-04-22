@@ -35,5 +35,3 @@ def sale_button(url):
     [InlineKeyboardButton(text='Задать вопроос',
     url='https://t.me/ilyaa_tar')]
 ])
-
-
