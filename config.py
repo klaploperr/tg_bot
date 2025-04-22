@@ -7,6 +7,7 @@ load_dotenv()
 TOKEN=os.getenv('TOKEN')
 SECRET_KEY=os.getenv('SECRET_KEY')
 ADMIN_ID=os.getenv('ADMIN_ID')
+ACCOUNT_ID=os.getenv('ACCOUNT_ID')
 
 # БД
 DB_USER=os.getenv('DB_USER')
