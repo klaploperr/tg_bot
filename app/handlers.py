@@ -18,6 +18,8 @@ router = Router()
 
 async def funnel(message: Message):
     await message.answer_photo(FSInputFile("media/matrix-me.png"), demo_lessons)
+
+    await asyncio.sleep(config.THIRTY_SECONDS)
     sale_url, sale_id = create_payment(config.CONS_PRICE, message.chat.id)
     await message.answer_photo(FSInputFile("media/life-is-running.png"))
     await message.answer(mentor_sales,
