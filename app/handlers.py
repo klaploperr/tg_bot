@@ -50,7 +50,7 @@ async def cmd_start_article(message: Message):
     await asyncio.sleep(config.FIVE_MINUTES)
     await funnel(message)
 
-@router.message(CommandStart())
+
 @router.message(CommandStart(deep_link=True, magic=F.args == 'guide'))
 async def cmd_start_article(message: Message):
     await message.answer(hello_guide(html.quote(message.from_user.first_name)),
