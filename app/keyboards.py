@@ -1,5 +1,6 @@
 from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
                            InlineKeyboardButton, InlineKeyboardMarkup)
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 article = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Забрать статью',
@@ -26,12 +27,12 @@ demo = InlineKeyboardMarkup(inline_keyboard=[
     url='https://drive.google.com/drive/folders/11cUGHjbvPlQwkOJecjvVDcJ7eTYcZnYZ?usp=sharing')]
 ])
 
-def sale_button(url):
-    return InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Оплата',
-    url=f'{url}')],
-    #[InlineKeyboardButton(text='FAQ',
-    #callback_data='FAQ')],
-    [InlineKeyboardButton(text='Задать вопроос',
+question = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Задать вопрос',
     url='https://t.me/ilyaa_tar')]
-])
+    ])
+
+async def sale_button(sale_url):
+    keyboard = InlineKeyboardBuilder()
+    keyboard.add(InlineKeyboardButton(text='Оплата', url=f'{sale_url}'))
+    return keyboard.adjust(1).as_markup()

@@ -20,10 +20,7 @@ async def funnel(message: Message):
     await message.answer_photo(FSInputFile("media/matrix-me.png"), demo_lessons)
 
     await asyncio.sleep(config.THIRTY_SECONDS)
-    sale_url, sale_id = create_payment(config.CONS_PRICE, message.chat.id)
-    await message.answer_photo(FSInputFile("media/life-is-running.png"))
-    await message.answer(mentor_sales,
-    reply_markup=kb.sale_button(sale_url))
+    await message.answer_photo(FSInputFile("media/life-is-running.png"), mentor_sales, reply_markup=kb.question)
 
     await asyncio.sleep(config.THREE_MINUTES)
     album_builder = MediaGroupBuilder(caption="🤕 Учусь в университете, работаю курьером и постоянно тревожусь за свое будущее.")
@@ -32,16 +29,15 @@ async def funnel(message: Message):
     album_builder.add_photo(media=FSInputFile("media/old_me3.jpg"))
     await message.answer_media_group(media=album_builder.build())
     await message.answer(my_story,
-    reply_markup=kb.sale_button(sale_url))
+    reply_markup=kb.question)
 
     await asyncio.sleep(config.TWELVE_HOURS)
-    if not check_payment(sale_id):
-        await message.answer(end(html.quote(message.from_user.first_name)))
+    await message.answer(await end(html.quote(message.from_user.first_name)))
 
 
 @router.message(CommandStart(deep_link=True, magic=F.args == 'guide'))
 async def cmd_start_guide(message: Message):
-    await message.answer(hello_guide(html.quote(message.from_user.first_name)),
+    await message.answer(await hello_guide(html.quote(message.from_user.first_name)),
     reply_markup=kb.guide)
     await asyncio.sleep(config.THREE_MINUTES)
     await message.answer_photo(FSInputFile("media/screen_questions.png"), gift,
@@ -53,7 +49,7 @@ async def cmd_start_guide(message: Message):
 @router.message(CommandStart())
 @router.message(CommandStart(deep_link=True, magic=F.args == 'article'))
 async def cmd_start_article(message: Message):
-    await message.answer(hello_article(html.quote(message.from_user.first_name)),
+    await message.answer(await hello_article(html.quote(message.from_user.first_name)),
     reply_markup=kb.article)
     await asyncio.sleep(config.THREE_MINUTES)
     await message.answer_photo(FSInputFile("media/screen_questions.png"), gift,
@@ -86,6 +82,11 @@ async def cmd_start_article(message: Message):
 #     else:
 #         await message.answer("⛔ Только администраторы могут использовать эту команду.")
 
+@router.message(Command("buy"))
+async def buy(message: Message, state: FSMContext):
+    sale_url, sale_id = create_payment(config.CONS_PRICE, message.chat.id)
+    await message.answer(sale,
+                         reply_markup=await kb.sale_button(sale_url))
 
 # 📩 Команда /post
 @router.message(Command("post"))
