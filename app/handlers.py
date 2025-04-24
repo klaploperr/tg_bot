@@ -12,11 +12,12 @@ from app.functions import *
 import app.keyboards as kb
 from app.payment import create_payment, check_payment, get_payment_list
 import config
-from app.database import *
+from app.database import add_user
 
 router = Router()
 
 async def funnel(message: Message):
+    await add_user(message.from_user.id)
     await message.answer_photo(FSInputFile("media/matrix-me.png"), demo_lessons)
 
     await asyncio.sleep(config.THIRTY_SECONDS)
@@ -57,30 +58,6 @@ async def cmd_start_article(message: Message):
     await asyncio.sleep(config.THREE_MINUTES)
     await funnel(message)
 
-
-# @router.message(CommandStart(deep_link=True, magic=F.args == 'course'))
-# async def cmd_start(message: Message):
-#     await message.answer(f"<b>Привет, {html.quote(message.from_user.first_name)}!</b>")
-#     await funnel(message)
-
-
-
-
-# @router.message(Command("payments"))
-# async def cmd_get_payments(message: Message):
-#     #await message.answer(str(message.from_user.id))
-#     if is_admin(message.from_user.id):
-#         await message.answer(get_payment_list()[0])
-#     else:
-#         await message.answer("⛔ Только администраторы могут использовать эту команду.")
-#
-#
-# @router.message(Command("conversion"))
-# async def cmd_get_conversion(message: Message):
-#     if is_admin(message.from_user.id):
-#         await message.answer(f'{get_payment_list()[1] / len(await get_all_users()) * 100} %')
-#     else:
-#         await message.answer("⛔ Только администраторы могут использовать эту команду.")
 
 @router.message(Command("buy"))
 async def buy(message: Message, state: FSMContext):

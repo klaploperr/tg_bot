@@ -1,10 +1,7 @@
-from xml.etree.ElementTree import indent
-
 import yookassa
 from yookassa import Payment
 import uuid
 from config import ACCOUNT_ID, SECRET_KEY
-import json
 
 yookassa.Configuration.account_id = ACCOUNT_ID
 yookassa.Configuration.secret_key = SECRET_KEY

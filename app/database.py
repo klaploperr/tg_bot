@@ -18,7 +18,7 @@ async def add_user(user_id: int):
     try:
         await conn.execute(
             "INSERT INTO users(user_id) VALUES($1) ON CONFLICT (user_id) DO NOTHING",
-            str(user_id)  # обязательно одинарный элемент в кортеже
+            str(user_id)
         )
     finally:
         await conn.close()
